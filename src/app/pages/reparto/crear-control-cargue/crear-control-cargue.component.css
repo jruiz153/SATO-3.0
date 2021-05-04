@@ -1,0 +1,94 @@
+.texto-guia {
+    font-size: 14px;
+    font-weight: bold;
+    width: 40px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #6a6a6a !important;
+}
+
+ ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: darkgray !important;
+}
+
+ ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #ba0020 !important;
+}
+
+.mat-form-field.mat-form-field {
+    font-size: 13px;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #ba0020 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #6a6a6a !important;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+    background-color: #D4001B !important;
+    color: white !important;
+    font-size: 20px;
+}
+
+.mat-fab:not([class*=mat-elevation-z]),
+.mat-mini-fab:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 1px -1px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 1px 1px 0px rgb(0 0 0 / 12%) !important;
+}
+
+
+/* autocomplete */
+
+::ng-deep .autocomplete-container {
+    font-family: "Roboto", sans-serif, Arial, sans-serif !important;
+    font-size: 7px !important;
+    border-radius: 0px !important;
+    border: 10px solid red !important;
+    /* box-shadow: 0 1px 0px rgb(228, 228, 228), 0 10px 10px 0 rgb(228, 228, 228), 0 0px 1px 1px rgb(228, 228, 228) !important; */
+    height: 28px !important;
+    color: #bf0000 !important;
+    text-transform: uppercase !important;
+    border-top-style: hidden !important;
+    border-right-style: hidden !important;
+    border-left-style: hidden !important;
+    border-bottom-style: groove !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+}
+
+::ng-deep .autocomplete-container .input-container input {
+    font-size: 3px !important;
+    font-weight: normal !important;
+    height: 20px !important;
+    border: 0px solid red !important;
+    color: #454F63 !important;
+    text-transform: uppercase !important;
+    padding: 0 8px !important;
+    padding-top: 8px !important;
+    background-color: #fcfcfc;
+    border: 5px solid #e4e4e4;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+}
+
+::ng-deep .autocomplete-container .suggestions-container ul li.item a {
+    /*background-color: # !important;*/
+    font-size: 13px !important;
+    font-weight: normal;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+::ng-deep .autocomplete-container .suggestions-container .dropdown-item.active {
+    background-color: #0099cc !important;
+    color: #fff !important;
+}

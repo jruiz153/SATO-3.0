@@ -1,0 +1,148 @@
+<form [formGroup]="forma" (ngSubmit)="grabar()">
+    //{{ opcion_activa }}// {{ permisos | json }}
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <mat-form-field class="full-width">
+                                    <input #myControlCargue type="txtControlCargue" formControlName="txtControlCargue" (change)="consultarCC()" style="font-weight: bold;color:#D4001B; font-size:14px;" matInput placeholder="Control cargue">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Embalaje</mat-label>
+                                    <mat-select formControlName="drpEmbalaje" id="drpEmbalaje" (selectionChange)="consultarRutas()" autofocus>
+                                        <mat-option>--Seleccione embalaje--</mat-option>
+                                        <mat-option value="CA"><i class="fas fa-box-open"></i> &nbsp; CAJAS</mat-option>
+                                        <mat-option value="PA"><i class="fas fa-box"></i> &nbsp; PAQUETES</mat-option>
+                                        <mat-option value="SO"><i class="fas fa-envelope"></i> &nbsp; SOBRES</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigoRuta" formControlName="txtCodigoRuta" matInput placeholder="Cod. Ruta" (change)="buscarCodigoRuta()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width" disabled>
+                                    <mat-label>Ruta</mat-label>
+                                    <mat-select formControlName="drpRuta" id="drpRuta">
+                                        <mat-option>--Seleccione ruta--</mat-option>
+                                        <mat-option *ngFor="let ruta of rutas" value="{{ ruta.Cod_Ruta }}"><i class="fas fa-truck"></i> &nbsp;{{ ruta.Nom_Ruta }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtConsSalida" formControlName="txtConsSalida" matInput placeholder="Cons. salida">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigo" formControlName="txtCodigo" matInput placeholder="Cod.Resp" (change)="buscarCodigo()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Responsable ruta</mat-label>
+                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
+                                        <mat-option>--Seleccione operador--</mat-option>
+                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <!-- <app-autocomplete-operadores required class="ng-autocomplete" (enviar)="recibirOperador($event)" placeholder="Responsable" [cod_regional]="cod_regional"></app-autocomplete-operadores> -->
+                            </div>
+
+                            <div class="col-sm-2">
+                                Estado: <button mat-mini-fab *ngIf="cc">{{ estado }}</button>
+                            </div>
+
+                            <div class="col-sm-2">
+                                Guías: <button mat-mini-fab *ngIf="cc">{{ guias.length }}</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+        <app-mensajes tipo="danger" [mensaje]="mensaje_error" *ngIf="error"></app-mensajes>
+    </div>
+
+    <div class="form-horizontal" *ngIf="estado !='CE'">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <app-loading *ngIf="cargando_guia"></app-loading>
+                    <div class="panel-body text-center">
+                        <div class="col-sm-12">Guía : &nbsp;
+                            <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
+                            <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
+                            <input type="text" style="width: 150px;" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal" *ngIf="guias.length > 0">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-body text-center" style="overflow: scroll;height: 200px;">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered tabla-hover" style="width:100%;overflow: scroll;">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td width="5%"></td>
+                                    <td width="10%">Regional</td>
+                                    <td width="10%">Forma pago</td>
+                                    <td width="15%">Guia</td>
+                                    <td width="20%">Estado</td>
+                                    <td width="10%">CP?</td>
+                                    <td width="10%"></td>
+                                </tr>
+                                <tr *ngFor="let guia of guias; let i = index" align="center">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>{{ guia.Cod_Regional }}</td>
+                                    <td>{{ guia.Cod_FormaPago }}</td>
+                                    <td>{{ guia.Cons_GuiasU }}</td>
+                                    <td>{{ guia.Des_EstadoG }}</td>
+                                    <td>{{ guia.Con_CartaPorte }}</td>
+                                    <td (click)="eliminarGuia(i)"><a><i class="fa fa-trash" style="padding:0px"></i></a></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="grabar()" color="primary" class="full-width">Grabar</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="anular()" color="primary" class="full-width">Anular</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="nuevo()" color="primary" class="full-width">Nuevo</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="imprimir()" color="primary" class="full-width">Imprimir</button>
+            </div>
+        </div>
+    </div>
+    <!--  {{ permisos | json }} -->
+</form>

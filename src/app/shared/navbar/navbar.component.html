@@ -1,0 +1,10 @@
+<mat-toolbar style="border-bottom: 1px solid #ddd;">
+    <button mat-icon-button>
+        <mat-icon mat-icon-button (click)="onabrirPanelDerecha()">search</mat-icon>
+    </button>
+    <span style="font-size: 16px;">{{ tools.titulo_opcion | uppercase }}</span>
+    <span class="example-spacer"></span>
+    <span class="navbar-brand navbar-right" style="font-size:12px">
+        {{ auth.nom_empleado }} <a (click)='logout()' style="cursor: pointer;">Salir </a>
+    </span>
+</mat-toolbar>

@@ -1,0 +1,30 @@
+<!-- MENU -->
+<mat-accordion multi="false">
+    <div *ngFor="let item of auth.menu">
+        <mat-expansion-panel class="mat-elevation-z0">
+            <mat-expansion-panel-header class="disable_ripple">
+                <mat-panel-title style="outline: none;">
+                    <span class="{{item.Icono}} sidenav-subitems-icon" style="font-size:12pt;"></span> &nbsp;
+                    <span class="sidenav-subitems-text mx-2 md align-self-center">{{ item.Nom_Modulo }}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-accordion multi="false">
+                <div *ngFor="let sub of item.SubModulos">
+                    <mat-expansion-panel-header class="disable_ripple">
+                        <mat-panel-title style="outline: none;">
+                            <span class="text-accent lg {{ sub.Nom_SubModulo }}"></span>
+                            <span class="sidenav-subitems-text mx-2 md align-self-center">{{ sub.Nom_SubModulo }}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div *ngFor="let opc of sub.Opciones" (click)="onToggleSidenav(opc.Nom_Programa, opc.Link)" routerLinkActive="activo" routerLink="./{{opc.Link}}" style="padding-left: 30px">
+                        <span class="fa fa-chevron-right sidenav-subitems-icon" style="font-size:12pt;"></span> &nbsp;
+                        <span class="sidenav-subitems-text">{{ opc.Nom_Opcion}} </span>
+                    </div>
+                </div>
+            </mat-accordion>
+        </mat-expansion-panel>
+        <mat-divider></mat-divider>
+    </div>
+</mat-accordion>

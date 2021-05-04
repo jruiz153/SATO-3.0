@@ -1,0 +1,53 @@
+.mat-list-base .mat-list-item {
+    font-size: 12px !important;
+    height: 36px;
+    text-align: left;
+    padding: 1px !important;
+    color: #6a6a6a;
+}
+
+.mat-expansion-panel-header {
+    height: 40px;
+}
+
+.sidenav-subitems-icon {
+    opacity: .5;
+}
+
+.sidenav-subitems-text {
+    opacity: .8;
+    cursor: pointer;
+}
+
+.mat-expansion-panel-header {
+    background-color: white !important;
+    border-radius: 0px !important;
+    font-size: 12px !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0px 10px 0px 0px !important;
+}
+
+::ng-deep .mat-expansion-panel-content {
+    font: 400 12px/20px Roboto, "Helvetica Neue", sans-serif !important;
+    letter-spacing: normal;
+}
+
+.activo {
+    /*  background-color: lightgray; */
+    font-weight: bold;
+    cursor: pointer;
+    color: #bf0000;
+    font-size: 12px !important;
+}
+
+.disable_ripple:hover {
+    /* background: lightgray !important; */
+    font-weight: bold;
+}
+
+
+/* .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 0px 0px, 0px 0px 0px 0px, 0px 0px 0px 0px !important;
+} */

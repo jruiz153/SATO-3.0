@@ -1,1 +1,310 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #fff;
+    color: #6a6a6a;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", Arial, sans-serif !important;
+    font-style: normal;
+    line-height: 1.5;
+    position: relative;
+    cursor: auto;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.mat-drawer-container {
+    background-color: #fafafa;
+    color: #6a6a6a !important;
+}
+
+.mat-toolbar.mat-primary {
+    background: #D4001B;
+    color: #fff;
+    padding: 0px;
+    height: 30px !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #D4001B;
+}
+
+
+/*navbar altura y color*/
+
+.mat-toolbar-single-row {
+    background: #fff;
+    color: #6a6a6a;
+    padding: 3px;
+    height: 44px !important;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    padding: 0 4px !important;
+}
+
+.mat-list-base .mat-subheader {
+    height: 10px !important;
+    line-height: 15px;
+}
+
+.mat-select-value {
+    color: #6a6a6a !important;
+}
+
+.mat-option-text {
+    color: #6a6a6a !important;
+}
+
+.mat-select-arrow {
+    color: #6a6a6a;
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #6a6a6a;
+}
+
+.mat-cell,
+.mat-footer-cell {
+    font-size: 13px !important;
+    color: #6a6a6a;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-content,
+.mat-list-base .mat-list-option .mat-list-item-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box !important;
+    padding: 0 16px !important;
+    position: relative;
+    height: inherit;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #D4001B !important;
+}
+
+ ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #f1f1f1 !important;
+}
+
+ ::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #D4001B !important;
+}
+
+.mat-raised-button {
+    background: #D4001B !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #ba0020 !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: #444 !important;
+}
+
+tr.mat-row,
+tr.mat-footer-row {
+    height: 40px !important;
+}
+
+.w-75 {
+    width: 50px;
+}
+
+.w-25 {
+    width: 25%;
+}
+
+
+/* Styles for tab labels */
+
+
+/* .mat-tab-body-content {
+    height: 100vh !important;
+} */
+
+.mat-tab-label {
+    min-width: 25px !important;
+    padding: 5px;
+    color: black;
+}
+
+
+/* Styles for the active tab label */
+
+.mat-tab-label.mat-tab-label-active {
+    min-width: 25px !important;
+    opacity: 0.9;
+    text-align: left;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    height: 3px;
+    color: #D4001B;
+    background-color: #D4001B;
+    text-align: left;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: #f8f8f8 !important;
+    /* border-radius: 10px; */
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #C1C1C1 !important;
+    border-radius: 0px;
+    height: 25px;
+}
+
+ ::-webkit-scrollbar-thumb:HOVER {
+    background: #CCC !important;
+}
+
+
+/*controles*/
+
+input {
+    padding: 4px;
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+    transition: 0.2s ease-out;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fcfcfc;
+    color: #454F63;
+    font-size: 12px;
+    width: 100%;
+}
+
+input[type="text"]:focus {
+    color: #454F63;
+    background-color: #fff;
+    border: 2px solid #D4001B;
+    border-bottom: 2px solid #bf0020;
+    outline: 0;
+    box-shadow: 0 0 0 0 !important;
+    width: 100%;
+    transition: border-color ease-in-out .75s, box-shadow ease-in-out .75s;
+}
+
+.input-field {
+    width: 100%;
+    padding: 5px;
+    padding-left: 30px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+select {
+    padding: 4px 5px 5px 5px;
+    border: 1px solid #e4e4e4;
+    background-color: #fcfcfc;
+    border-radius: 3px;
+    transition: 0.2s ease-out;
+    font-family: "Roboto", sans-serif, Arial, sans-serif !important;
+    color: #454F63;
+    width: 100%;
+}
+
+select:hover {
+    background-color: #fff;
+    border: 2px solid #D4001B;
+}
+
+select:focus {
+    background-color: #fff;
+    border: 2px solid #D4001B;
+}
+
+
+/*iconos*/
+
+.input-icons i {
+    position: absolute;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 1px;
+}
+
+.icon {
+    padding: 8px;
+    min-width: 1px;
+    color: #AAAAAA;
+}
+
+.icon-button {
+    padding: 8px;
+    min-width: 1px;
+    color: #fff;
+}
+
+
+/* autocomplete */
+
+.autocomplete-container {
+    font-family: "Roboto", sans-serif, Arial, sans-serif !important;
+    font-size: 13px !important;
+    border-radius: 3px !important;
+    box-shadow: 0 1px 0px rgb(228, 228, 228), 0 1px 1px 0 rgb(228, 228, 228), 0 0px 1px 1px rgb(228, 228, 228) !important;
+    height: 28px !important;
+    color: #bf0000 !important;
+    text-transform: uppercase !important;
+}
+
+.autocomplete-container .input-container input {
+    font-size: 13px !important;
+    font-weight: normal !important;
+    height: 20px !important;
+    color: #454F63 !important;
+    text-transform: uppercase !important;
+    padding: 0 8px !important;
+    padding-top: 8px !important;
+    background-color: #fcfcfc;
+}
+
+.autocomplete-container .suggestions-container ul li.item a {
+    /*background-color: # !important;*/
+    font-size: 13px !important;
+    font-weight: normal;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.autocomplete-container .suggestions-container .dropdown-item.active {
+    background-color: #0099cc !important;
+    color: #fff !important;
+}
+
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+    background: #D4001B !important;
+}

@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" style="min-height:52px">
+    <mat-toolbar-row>
+        <button mat-icon-button>
+            <mat-icon (click)="onToggleSidenav()">menu</mat-icon> <!-- toggleSidenav.emit() -->
+        </button>
+        <h1>SATO web 3.0</h1>
+        <span></span>
+        <div>
+            <a mat-button [routerLink]="'/home'"> Versión 1.001 </a>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,296 @@
+<form [formGroup]="forma" (ngSubmit)="grabar()">
+    <!-- {{ userS.acciones_s | json }} -->
+    <!-- informacion general -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <input type="txtPlanilla" formControlName="txtPlanilla" style="font-weight: bold;color:#D4001B; font-size:14px;" matInput placeholder="Planilla reparto">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione fecha</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="txtFecha">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione embalaje</mat-label>
+                                    <mat-select formControlName="drpEmbalaje" id="drpEmbalaje" autofocus>
+                                        <mat-option>--Seleccione embalaje--</mat-option>
+                                        <mat-option value="CA"><i class="fas fa-box-open"></i> &nbsp; CAJAS</mat-option>
+                                        <mat-option value="PA"><i class="fas fa-box"></i> &nbsp; PAQUETES</mat-option>
+                                        <mat-option value="SO"><i class="fas fa-envelope"></i> &nbsp; SOBRES</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Tipo planilla</mat-label>
+                                    <mat-select formControlName="drpTipo" id="drpTipo" (selectionChange)="consultarParametrosTipo()">
+                                        <mat-option>--Seleccione--</mat-option>
+                                        <mat-option value="PROPIOS"><i class="fas fa-user"></i> &nbsp; PROPIOS</mat-option>
+                                        <mat-option value="RX"><i class="fas fa-user"></i> &nbsp; REEXPEDIDORES</mat-option>
+                                        <mat-option value="CO"><i class="fas fa-user"></i> &nbsp; CONTRATISTAS B</mat-option>
+                                        <mat-option value="TERCEROS"><i class="fas fa-user"></i> &nbsp; TERCEROS</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <mat-form-field class="full-width">
+                                    <mat-chip-list #chipList aria-orientation="horizontal">
+                                        <mat-chip *ngFor="let cc of ccs" [selectable]="selectable" [removable]="removable" (removed)="removeCC(cc)">
+                                            {{cc.num_controlc}}
+                                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                        </mat-chip>
+                                        <input placeholder="Controles de cargue" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addCC($event)">
+                                    </mat-chip-list>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+    </div>
+    <!-- panel propios -->
+    <div class="form-horizontal" *ngIf="(forma.controls.drpTipo.value=='PROPIOS')">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Propio
+                    </div>
+                    <div class="panel-body text-center">
+
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigoOperador" formControlName="txtCodigoOperador" matInput placeholder="Codigo" (change)="buscarCodigo()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione operador</mat-label>
+                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
+                                        <mat-option>--Seleccione operador--</mat-option>
+                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigoOperador" formControlName="txtCodigoOperador" matInput placeholder="Codigo" (change)="buscarCodigo()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione operador</mat-label>
+                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
+                                        <mat-option>--Seleccione operador--</mat-option>
+                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigoOperador" formControlName="txtCodigoOperador" matInput placeholder="Codigo" (change)="buscarCodigo()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione operador</mat-label>
+                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
+                                        <mat-option>--Seleccione operador--</mat-option>
+                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-2">
+                                <mat-form-field class="full-width">
+                                    <input type="txtCodigoOperador" formControlName="txtCodigoOperador" matInput placeholder="Codigo" (change)="buscarCodigo()">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione operador</mat-label>
+                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
+                                        <mat-option>--Seleccione operador--</mat-option>
+                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- panel rx -->
+    <div class="form-horizontal" *ngIf="(forma.controls.drpTipo.value=='RX')">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Reexpedidor
+                    </div>
+                    <div class="panel-body text-center">
+                        Soy Reexpedidor
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- panel contratistas -->
+    <div class="form-horizontal" *ngIf="(forma.controls.drpTipo.value=='CO')">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Contratista B
+                    </div>
+                    <div class="panel-body text-center">
+                        Soy Contratista B
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- panel terceros -->
+    <div class="form-horizontal" *ngIf="(forma.controls.drpTipo.value=='TERCEROS')">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Tercero
+                    </div>
+                    <div class="panel-body text-center">
+                        Soy Tercero
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- guias -->
+    <div class="form-horizontal">
+        <!-- *ngIf="guias.length > 0" -->
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-body text-center" style="overflow: scroll; height: 150px;">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:1500px;overflow: scroll;">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td></td>
+                                    <td>Regional</td>
+                                    <td>Forma pago</td>
+                                    <td>Guia</td>
+                                    <td>Estado</td>
+                                    <td>Viene de R</td>
+                                    <td>Pasa a CC</td>
+                                    <td>Novedad</td>
+                                    <td>Aclaración</td>
+
+                                    <td>Nov.OP</td>
+                                    <td>Nov.SC</td>
+                                    <td>Control</td>
+                                </tr>
+                                <tr *ngFor="let guia of guias; let i = index" align="center">
+                                    <td>{{ i + 1 }}</td>
+                                    <td><b>{{ guia.Cod_Regional }}</b></td>
+                                    <td><b>{{ guia.Cod_FormaPago }}</b></td>
+                                    <td>{{ guia.Cons_GuiasU }}</td>
+                                    <td>{{ guia.Estado }}</td>
+                                    <td>{{ guia.CP }}</td>
+                                    <td>{{ guia.Estado }}</td>
+                                    <td>{{ guia.Estado }}</td>
+                                    <td>{{ guia.Estado }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- observaciones -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12" style="text-align: center;">
+                                <mat-radio-group>
+                                    <mat-radio-button class="example-margin" value="insertar" style="padding: 8px;">Insertar guías</mat-radio-button>
+                                    <mat-radio-button class="example-margin" value="quitar" style="padding: 8px;">Quitar guías</mat-radio-button>
+                                    <mat-radio-button class="example-margin" value="novedades" style="padding: 8px;">Novedades</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <mat-form-field class="full-width">
+                                    <input type="txtPlanilla" formControlName="txtPlanilla" matInput placeholder="Observaciones">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- totales -->
+    <div class="form-horizontal">
+        <!-- *ngIf="guias.length > 0" -->
+        <div class="alert alert-danger">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <h3>Total destinos: {{ guias.length }} </h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3>Total guías: {{ guias.length }} </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- botones -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="grabar()" color="primary" class="full-width">Grabar</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="anular()" color="primary" class="full-width">Anular</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="nuevo()" color="primary" class="full-width">Nuevo</button>
+            </div>
+            <div class="col-sm-3" style="padding: 8px;">
+                <button mat-raised-button (click)="imprimir()" color="primary" class="full-width">Imprimir</button>
+            </div>
+        </div>
+    </div>
+    {{ userS.acciones_s | json }}
+</form>

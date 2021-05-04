@@ -1,0 +1,13 @@
+<div>
+    <ng-autocomplete [data]="data$ | async" (inputCleared)="searchCleared()" [placeholder]="placeholder" (inputChanged)='getServerResponse($event)' (selected)='selectEvent($event)' [searchKeyword]="keyword" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+        [minQueryLength]="2">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.Nom_Empleado"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+    </ng-template>
+</div>

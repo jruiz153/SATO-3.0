@@ -1,0 +1,24 @@
+.tabla {
+    width: 100%;
+    margin-bottom: 0px;
+    color: #6a6a6a;
+}
+
+.tabla .tabla {
+    background-color: #cccccc;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.tabla>tr>td {
+    font-family: "Roboto", sans-serif, Arial, sans-serif !important;
+    border: 1px solid #E3E8EA !important;
+    font-size: 12px;
+    padding: 4px;
+    line-height: 1.428571429;
+}
+
+.tabla-hover>tr:hover>td,
+.tabla-hover>tr:hover>th {
+    background-color: #f5f5f5;
+}
