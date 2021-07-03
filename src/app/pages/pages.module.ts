@@ -6,8 +6,10 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../modules/material.modules';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 /* import { PagesRoutingModule } from './pages.routing'; */
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { InicioComponent } from './inicio/inicio.component';
 import { RepartoModule } from './reparto/reparto.module';
+import { PagesRoutingModule } from './pages.routing';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { RepartoModule } from './reparto/reparto.module';
   ],
   exports: [
     PagesComponent,
+    SharedModule
   ],
   imports: [ 
    /*  RepartoModule, este es definido en el PagesRoutingModule */
@@ -25,8 +28,8 @@ import { RepartoModule } from './reparto/reparto.module';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-  
- /*    PagesRoutingModule, */
+    PagesRoutingModule,
+    AutocompleteLibModule
   ]
 })
 export class PagesModule { }

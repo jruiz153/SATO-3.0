@@ -1,0 +1,20 @@
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #D4001B !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #D4001B !important;
+}
+
+.tabla>tr>td {
+    font-size: 11px !important;
+}
+
+::ng-deep .mat-menu-item {
+    line-height: 30px !important;
+    height: 30px !important;
+    font-size: 11px !important;
+}

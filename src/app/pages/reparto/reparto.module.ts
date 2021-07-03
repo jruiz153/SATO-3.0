@@ -5,8 +5,9 @@ import { CrearPlanillaRepartoComponent } from './crear-planilla-reparto/crear-pl
 import { RepartoRoutingModule } from './reparto-rounting.module';
 import { MaterialModule } from '../../modules/material.modules';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
+//import { SharedModule } from '../../shared/shared.module';
 import { PagesModule } from '../pages.module';
+
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { PagesModule } from '../pages.module';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
+    //SharedModule,
     PagesModule
   ],
   exports:[

@@ -6,21 +6,27 @@ import { PagesModule } from '../pages.module';
 import { MaterialModule } from 'src/app/modules/material.modules';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ControlRecoleccionComponent } from './control-recoleccion/control-recoleccion.component';
+import { ChartsModule } from "ng2-charts";
+
 
 @NgModule({
-  declarations: [MonitorRecoleccionComponent],
+  declarations: [MonitorRecoleccionComponent, ControlRecoleccionComponent],
   imports: [
+    //FormsModule,
+    //ReactiveFormsModule,
     CommonModule,
     RecoleccionRoutingModule,
-    CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     SharedModule,
     PagesModule
   ],
   exports: [
-    MonitorRecoleccionComponent
+    MonitorRecoleccionComponent,
+    ControlRecoleccionComponent
   ]
 })
 export class RecoleccionModule { }

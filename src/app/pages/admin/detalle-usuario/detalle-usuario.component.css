@@ -1,0 +1,24 @@
+.mat-list-base .mat-list-option {
+    font-size: 13px !important;
+    height: 30px !important;
+}
+
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+    background: #D4001B !important;
+}
+
+mat-selection-list {
+    max-height: 400px !important;
+    overflow: auto;
+}
+
+.activo {
+    /*  background-color: lightgray; */
+    font-weight: bold;
+    cursor: pointer;
+    color: #bf0000;
+    font-size: 12px !important;
+}

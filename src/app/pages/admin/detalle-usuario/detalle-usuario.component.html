@@ -1,0 +1,96 @@
+<form [formGroup]="forma">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body" *ngIf="usuario">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Usuario:</label>
+                            <div class="col-sm-4 control-label" style="text-align: left;"><b>{{ usuario.Cod_Usuario }}</b></div>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Nombre:</label>
+                            <div class="col-sm-4 control-label" style="text-align: left;"><b>{{ usuario.Nom_Empleado }}</b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Codigo:</label>
+                            <div class="col-sm-4 control-label" style="text-align: left;"><b>{{ usuario.Cod_Nomina }}</b></div>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Cargo:</label>
+                            <div class="col-sm-4 control-label" style="text-align: left;"><b>{{ usuario.Nom_Cargo }}</b>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button mat-raised-button color="primary" class="full-width" (click)="actualizar()">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+        <div class="form-group">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Opciones</div>
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <mat-selection-list #shoes [multiple]="false" (selectionChange)="onOpcionChange(shoes.selectedOptions.selected)">
+                                    <mat-list-option *ngFor="let opcion of opciones" [value]="opcion.Cod_Opcion">
+                                        {{opcion.Nom_Opcion}}
+                                    </mat-list-option>
+                                </mat-selection-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-sm-3">
+                <div class="panel panel-default" *ngIf="acciones.length > 0">
+                    <div class="panel-heading">Permisos</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <mat-selection-list #accion (selectionChange)="selectionChange($event.option)">
+                                    <mat-list-option [ngClass]="{'activo':accion.Selected}" *ngFor="let accion of acciones" checkboxPosition="after" [value]="accion.Cod_Accion" [selected]="accion.Selected">
+                                        {{accion.Nom_Accion}}
+                                    </mat-list-option>
+                                </mat-selection-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-sm-6">
+                <div class="panel panel-default" *ngIf="acciones.length > 0">
+                    <div class="panel-heading">Permisos tabla</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <table>
+                                    <tr *ngFor="let accion of acciones">
+                                        <td>{{accion.Nom_Accion}}</td>
+                                        <td width="5%" align="center" style="padding: 5px;">
+                                            <div class="checkbox checkbox-styled" style="padding-top:0px; padding-left:0px" (change)="accionChange($event.target.checked,accion)">
+                                                <label>
+                                                <input type="checkbox" [value]="accion.Cod_Accion" [checked]="accion.Selected">
+                                                <span></span>
+                                            </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <!-- // Selected: {{ selectedOptions | json }} // -->
+    </div>
+</form>

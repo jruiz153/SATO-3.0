@@ -12,6 +12,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutocompleteOperadoresComponent } from './autocomplete/autocomplete-operadores/autocomplete-operadores.component';
 import { AutocompleteCiudadesComponent } from './autocomplete/autocomplete-ciudades/autocomplete-ciudades.component';
+import { MensajesComponent } from './mensajes/mensajes.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AutocompleteCiudadesComponent } from './autocomplete/autocomplete-ciuda
     ResultsComponent, 
     LoadingComponent, 
     AutocompleteOperadoresComponent,
-    AutocompleteCiudadesComponent
+    AutocompleteCiudadesComponent,
+    MensajesComponent
   ],
   imports: [
     CommonModule,
@@ -36,11 +38,13 @@ import { AutocompleteCiudadesComponent } from './autocomplete/autocomplete-ciuda
     NavbarComponent, 
     HeaderComponent, 
     MenuComponent, 
-    SearchComponent, 
     ResultsComponent, 
     LoadingComponent, 
     AutocompleteOperadoresComponent,
-    AutocompleteCiudadesComponent
+    AutocompleteCiudadesComponent,
+    MensajesComponent,
+    SearchComponent, 
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

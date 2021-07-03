@@ -1,0 +1,66 @@
+<form [formGroup]="forma" (ngSubmit)="consultar()">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Regional:</label>
+                            <div class="col-sm-2">
+                                <select formControlName="drpRegionales" id="drpRegionales">
+                                    <option value="" >--Seleccione regional--</option>
+                                    <option *ngFor="let r of regionales" value="{{ r.Cod_Regional }}">{{ r.Nom_Regional }}</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-1 control-label">Usuario:</label>
+                            <div class="col-sm-2">
+                                <input type="txtUsuario" formControlName="txtUsuario" placeholder="Usuario">
+                            </div>
+                            <label class="col-sm-1 control-label">Codigo:</label>
+                            <div class="col-sm-2">
+                                <input type="txtCodigo" formControlName="txtCodigo" placeholder="Codigo nomina">
+                            </div>
+                            <div class="col-sm-2">
+                                <button mat-raised-button (click)="consultar()" color="primary" class="full-width">
+                                Consultar
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+    </div>
+
+    <div class="form-horizontal" *ngIf="usuarios.length > 0">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b>Usuarios activos ( {{ usuarios.length }} )</b>
+                    </div>
+                    <div class="panel-body" style="overflow: scroll;">
+
+
+                        <table id="tbl" name="tbl" class="tabla tabla-hover table-bordered">
+                            <tr style="font-size:7px; font-weight:bold; background-color:#f7f7f7" align="center">
+                                <td width="10%">Regional</td>
+                                <td width="20%">Usuario</td>
+                                <td width="10%">Codigo</td>
+                                <td width="50%">Empleado</td>
+                            </tr>
+                            <tr style="font-size:11px" align="center" *ngFor="let u of usuarios; let i = index">
+                                <td>{{ u.Cod_Regional }}</td>
+                                <td><a [routerLink]="'../detalle-usuario/' + u.Cod_Usuario"> {{ u.Cod_Usuario }}</a></td>
+                                <td>{{ u.Cod_Nomina }}</td>
+                                <td>{{ u.Nom_Empleado }}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

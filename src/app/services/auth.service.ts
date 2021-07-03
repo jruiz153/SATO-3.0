@@ -19,6 +19,7 @@ export class AuthService {
   token: string;
   UsuarioEnviaNet: string;
   menu: any[] = [];
+  fecha_sistema: string = "";
 
   constructor(private http: HttpClient, public tools: ToolsService, private router: Router) {
     this.getUsuario();
@@ -37,6 +38,8 @@ export class AuthService {
         this.nom_empleado = this.usuario.Nom_Empleado;
         this.UsuarioEnviaNet = this.usuario.UsuarioEnviaNet;
         this.menu = this.usuario.Modulos;
+        this.fecha_sistema = "15/04/2021";
+        
         let user = JSON.parse(localStorage.getItem('usuario'));
      }
      else{

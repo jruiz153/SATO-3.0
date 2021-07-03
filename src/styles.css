@@ -193,7 +193,7 @@ input {
     border: 1px solid #e4e4e4;
     border-radius: 4px;
     transition: 0.2s ease-out;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Roboto", sans-serif, Arial, sans-serif !important;
     background-color: #fcfcfc;
     color: #454F63;
     font-size: 12px;
@@ -205,7 +205,7 @@ input[type="text"]:focus {
     background-color: #fff;
     border: 2px solid #D4001B;
     border-bottom: 2px solid #bf0020;
-    outline: 0;
+    outline: none;
     box-shadow: 0 0 0 0 !important;
     width: 100%;
     transition: border-color ease-in-out .75s, box-shadow ease-in-out .75s;
@@ -217,17 +217,17 @@ input[type="text"]:focus {
     padding-left: 30px;
     text-align: left;
     text-transform: uppercase;
-    font-size: 12px;
 }
 
 select {
-    padding: 4px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
     border: 1px solid #e4e4e4;
     background-color: #fcfcfc;
     border-radius: 3px;
     transition: 0.2s ease-out;
     font-family: "Roboto", sans-serif, Arial, sans-serif !important;
     color: #454F63;
+    outline: none;
     width: 100%;
 }
 
@@ -237,6 +237,21 @@ select:hover {
 }
 
 select:focus {
+    background-color: #fff;
+    border: 2px solid #D4001B;
+}
+
+textarea {
+    padding: 3px 3px 3px 3px;
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+    transition: 0.2s ease-out;
+    font-family: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+    color: #454F63;
+    outline: none;
+}
+
+textarea:focus {
     background-color: #fff;
     border: 2px solid #D4001B;
 }

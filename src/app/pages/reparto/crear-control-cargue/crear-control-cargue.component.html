@@ -1,72 +1,70 @@
-<form [formGroup]="forma" (ngSubmit)="grabar()">
-    //{{ opcion_activa }}// {{ permisos | json }}
+<form [formGroup]="forma" ngSubmit="grabar()">
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-sm-12">
+            <div class="col-sm-12 col-md-6 col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="form-group">
-                            <div class="col-sm-2 col-md-2 col-lg-2">
-                                <mat-form-field class="full-width">
-                                    <input #myControlCargue type="txtControlCargue" formControlName="txtControlCargue" (change)="consultarCC()" style="font-weight: bold;color:#D4001B; font-size:14px;" matInput placeholder="Control cargue">
-                                </mat-form-field>
+                            <label class="col-sm-2 control-label">Control:</label>
+                            <div class="col-sm-4">
+                                <input type="text" formControlName="txtControlCargue" id="txtControlCargue" placeholder="Control cargue" (change)="consultarCC()">
                             </div>
-                            <div class="col-sm-3 col-md-3 col-lg-3">
-                                <mat-form-field class="full-width">
-                                    <mat-label>Embalaje</mat-label>
-                                    <mat-select formControlName="drpEmbalaje" id="drpEmbalaje" (selectionChange)="consultarRutas()" autofocus>
-                                        <mat-option>--Seleccione embalaje--</mat-option>
-                                        <mat-option value="CA"><i class="fas fa-box-open"></i> &nbsp; CAJAS</mat-option>
-                                        <mat-option value="PA"><i class="fas fa-box"></i> &nbsp; PAQUETES</mat-option>
-                                        <mat-option value="SO"><i class="fas fa-envelope"></i> &nbsp; SOBRES</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2">
-                                <mat-form-field class="full-width">
-                                    <input type="txtCodigoRuta" formControlName="txtCodigoRuta" matInput placeholder="Cod. Ruta" (change)="buscarCodigoRuta()">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-3 col-md-3 col-lg-3">
-                                <mat-form-field class="full-width" disabled>
-                                    <mat-label>Ruta</mat-label>
-                                    <mat-select formControlName="drpRuta" id="drpRuta">
-                                        <mat-option>--Seleccione ruta--</mat-option>
-                                        <mat-option *ngFor="let ruta of rutas" value="{{ ruta.Cod_Ruta }}"><i class="fas fa-truck"></i> &nbsp;{{ ruta.Nom_Ruta }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-sm-2 col-md-2 col-lg-2">
-                                <mat-form-field class="full-width">
-                                    <input type="txtConsSalida" formControlName="txtConsSalida" matInput placeholder="Cons. salida">
-                                </mat-form-field>
+                            <label class="col-sm-2 control-label">Embalaje:</label>
+                            <div class="col-sm-4 input-icons">
+                                <i class="fas fa-box icon"></i>
+                                <select formControlName="drpEmbalaje" id="drpEmbalaje" (change)="consultarRutas()" class="input-field" autofocus>
+                                    <option value="" selected="selected">--Seleccione--</option>
+                                    <option value="CA">CAJAS</option>
+                                    <option value="PA">PAQUETES</option>
+                                    <option value="SO">SOBRES</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2 col-md-2 col-lg-2">
-                                <mat-form-field class="full-width">
-                                    <input type="txtCodigo" formControlName="txtCodigo" matInput placeholder="Cod.Resp" (change)="buscarCodigo()">
-                                </mat-form-field>
+                            <label class="col-sm-2 control-label">Estado:</label>
+                            <div class="col-sm-4">
+                                <div class="badge" style="font-size: 24px;" *ngIf="cc">{{ estado }}</div>
                             </div>
-                            <div class="col-sm-3 col-md-3 col-lg-3">
-                                <mat-form-field class="full-width">
-                                    <mat-label>Responsable ruta</mat-label>
-                                    <mat-select formControlName="drpOperador" id="drpEmbalaje">
-                                        <mat-option>--Seleccione operador--</mat-option>
-                                        <mat-option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <!-- <app-autocomplete-operadores required class="ng-autocomplete" (enviar)="recibirOperador($event)" placeholder="Responsable" [cod_regional]="cod_regional"></app-autocomplete-operadores> -->
+                            <label class="col-sm-2 control-label">Guías:</label>
+                            <div class="col-sm-4 text-left">
+                                <div class="badge" style="font-size: 24px;" *ngIf="guias.length > 0">{{ guias.length }}</div>
                             </div>
-
-                            <div class="col-sm-2">
-                                Estado: <button mat-mini-fab *ngIf="cc">{{ estado }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Ruta:</label>
+                            <div class="col-sm-3">
+                                <input type="text" formControlName="txtCodigoRuta" id="txtCodigoRuta" (change)="buscarCodigoRuta()" placeholder="Codigo">
                             </div>
-
-                            <div class="col-sm-2">
-                                Guías: <button mat-mini-fab *ngIf="cc">{{ guias.length }}</button>
+                            <div class="col-sm-7">
+                                <select id="drpRuta" formControlName="drpRuta">
+                                    <option value="" selected="selected">--Seleccione ruta--</option>
+                                    <option *ngFor="let ruta of rutas" value="{{ ruta.Cod_Ruta }}">{{ ruta.Nom_Ruta }}</option>
+                                </select>
                             </div>
-
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Responsable:</label>
+                            <div class="col-sm-3">
+                                <input type="text" formControlName="txtCodigo" id="txtCodigo" placeholder="Codigo" (change)="buscarCodigo()">
+                            </div>
+                            <div class="col-sm-7">
+                                <select id="drpOperador" formControlName="drpOperador">
+                                    <option value="" selected="selected">--Seleccione operador--</option>
+                                    <option *ngFor="let o of operadores" value="{{ o.Codigo }}">{{ o.Nom_Empleado }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Consecutivo:</label>
+                            <div class="col-sm-3">
+                                <input type="text" formControlName="txtConsSalida" id="txtConsSalida" placeholder="Cons.">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,12 +91,23 @@
         </div>
     </div>
 
+    <div class="panel panel-danger" *ngIf="mostrar_panel_anular">
+        <div class="panel-heading">Ingrese el nuevo Control de cargue para la guía : {{ guia_cambiar_cc}}</div>
+        <div class="panel-body text-right">
+            <div class="col-sm-9">Control de cargue : &nbsp;
+                <input #myNuevoCC type="text" style="width: 150px;" class="texto-guia" formControlName="txtNuevoControlCargue" id="txtNuevoControlCargue" maxlength="8">
+            </div>
+            <div class="col-sm-3" style="text-align: left;">
+                <button mat-raised-button (click)="cambiarGuiaCC()" color="primary" class="full-width">Grabar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="form-horizontal" *ngIf="guias.length > 0">
         <div class="form-group">
             <div class="col-sm-12">
                 <div class="panel panel-default">
-
-                    <div class="panel-body text-center" style="overflow: scroll;height: 200px;">
+                    <div class="panel-body text-center dangerspm" style="overflow: scroll;height: 200px;">
                         <div class="col-sm-12">
                             <table class="tabla tabla-bordered tabla-hover" style="width:100%;overflow: scroll;">
                                 <tr style="font-weight: bold;" align="center">
@@ -110,14 +119,14 @@
                                     <td width="10%">CP?</td>
                                     <td width="10%"></td>
                                 </tr>
-                                <tr *ngFor="let guia of guias; let i = index" align="center">
+                                <tr *ngFor="let guia of guias; let i = index" align="center" [ngClass]="{success: registro_activo == i}">
                                     <td>{{ i + 1 }}</td>
                                     <td>{{ guia.Cod_Regional }}</td>
                                     <td>{{ guia.Cod_FormaPago }}</td>
                                     <td>{{ guia.Cons_GuiasU }}</td>
                                     <td>{{ guia.Des_EstadoG }}</td>
                                     <td>{{ guia.Con_CartaPorte }}</td>
-                                    <td (click)="eliminarGuia(i)"><a><i class="fa fa-trash" style="padding:0px"></i></a></td>
+                                    <td (click)="eliminarGuia(i, guia)"><a><i class="fa fa-trash" *ngIf="estado =='AB' || origen =='adicion'" style="padding:0px"></i></a>{{ origen }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -134,7 +143,7 @@
                 <button mat-raised-button (click)="grabar()" color="primary" class="full-width">Grabar</button>
             </div>
             <div class="col-sm-3" style="padding: 8px;">
-                <button mat-raised-button (click)="anular()" color="primary" class="full-width">Anular</button>
+                <button mat-raised-button (click)="anular()" [disabled]="bloqueo_anular" color="primary" class="full-width">Anular</button>
             </div>
             <div class="col-sm-3" style="padding: 8px;">
                 <button mat-raised-button (click)="nuevo()" color="primary" class="full-width">Nuevo</button>
@@ -144,5 +153,5 @@
             </div>
         </div>
     </div>
-    <!--  {{ permisos | json }} -->
+    //{{ opcion_activa }}// {{ permisos | json }}
 </form>

@@ -6,9 +6,15 @@ import { AuthRoutingModule } from './auth/auth.rounting';
 
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { ResultsComponent } from './shared/results/results.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  
+  { path: 'login', component:  LoginComponent},
+  //{ path: 'results/:id', component: ResultsComponent },
   { path: '**', component:  NopagefoundComponent},
 ];
 
@@ -16,7 +22,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot( routes ),
     PagesRoutingModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedModule
   ],
   exports: [ RouterModule ]
 })

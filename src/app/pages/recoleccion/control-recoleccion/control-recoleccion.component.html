@@ -1,0 +1,266 @@
+<form [formGroup]="forma" (ngSubmit)="consultar()">
+    <!-- informacion general -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-1 control-label">Fecha:</label>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <input type="date" formControlName="txtFecha" id="txtFecha">
+                                <!-- <mat-form-field class="full-width">
+                                    <mat-label>Seleccione fecha</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="txtFecha">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field> -->
+                            </div>
+                            <label class="col-sm-1 control-label">Embalaje:</label>
+                            <div class="col-sm-2 col-md-2 col-lg-2 input-icons">
+
+                                <select formControlName="drpEmbalaje" id="drpEmbalaje">
+                                    <option value="" selected="selected">--Seleccione--</option>
+                                    <option value="CA">CAJAS</option>
+                                    <option value="PA">PAQUETES</option>
+                                    <option value="SO">SOBRES</option>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-1 control-label">Frente:</label>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <select formControlName="drpEmbalaje" id="drpEmbalaje">
+                                    <option value="" selected="selected">--Seleccione--</option>
+                                    <option value="CA">CAJAS</option>
+                                    <option value="PA">PAQUETES</option>
+                                    <option value="SO">SOBRES</option>
+                                </select>
+                            </div>
+
+                            <label class="col-sm-1 control-label">Zona:</label>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                <select formControlName="drpEmbalaje" id="drpEmbalaje">
+                                    <option value="" selected="selected">--Seleccione--</option>
+                                    <option value="CA">CAJAS</option>
+                                    <option value="PA">PAQUETES</option>
+                                    <option value="SO">SOBRES</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <button mat-raised-button (click)="consultar()" color="primary" class="full-width">
+                                    Consultar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fas fa-shipping-fast"></i> REPARTO</div>
+                    <div class="panel-body">
+                        <div style="display: block">
+                            <canvas baseChart [options]="chartOptions" [legend]="pieChartLegend" [colors]="colors" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartClick)="chartClicked($event)">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Resumen reparto</div>
+                    <div class="panel-body text-center">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td width="70%">Estado</td>
+                                    <td width="30%">Guías</td>
+                                </tr>
+                                <tr *ngFor="let r of planillas_rec; let i = index" align="center">
+                                    <td>{{ r.Estado }}</td>
+                                    <td>{{ r.Cantidad }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fas fa-dolly"></i> RECOLECCION</div>
+                    <div class="panel-body">
+                        <div style="display: block">
+                            <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Resumen Recolección</div>
+                    <div class="panel-body text-center">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td width="70%">Estado</td>
+                                    <td width="30%">Ordenes</td>
+                                </tr>
+                                <tr *ngFor="let r of planillas_rec; let i = index" align="center">
+                                    <td>{{ r.Estado }}</td>
+                                    <td>{{ r.Cantidad }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Planillas de Reparto
+                        <b *ngIf="planillas_rec">({{ planillas_rep.length }})</b>
+                    </div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 200px; font-size:11px">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%;overflow: scroll;font-size:11px !important">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td>Planilla</td>
+                                    <td>Placa</td>
+                                    <td>Oficina</td>
+                                    <td>Zona</td>
+                                    <td>Responsable ruta</td>
+                                    <td>Comunicarse</td>
+                                    <td>Observación</td>
+                                </tr>
+                                <tr *ngFor="let planilla of planillas_rec; let i = index" align="center" [ngClass]="{success: registro_activo == i}" style="width:100%;overflow: scroll;font-size:8px">
+                                    <td><a (click)="consultarPlanilla(planilla,i)" style="cursor: pointer;">{{ planilla.Num_PlanillaR }}</a></td>
+                                    <td><b>{{ planilla.Nro_Placa }}</b></td>
+                                    <td>{{ planilla.Cod_Oficina }}</td>
+                                    <td>{{ planilla.Nom_Zona }}</td>
+                                    <td>{{ planilla.Responsable }}</td>
+                                    <td>{{ planilla.Comunicarse }}</td>
+                                    <td width="15%">{{ planilla.Observaciones }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Planillas de Recolección
+                        <b *ngIf="planillas_rec">({{ planillas_rec.length }})</b>
+                    </div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 200px; font-size:11px">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%;overflow: scroll;font-size:11px !important">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td>Planilla</td>
+                                    <td>Placa</td>
+                                    <td>Oficina</td>
+                                    <td>Zona</td>
+                                    <td>Responsable ruta</td>
+                                    <td>Comunicarse</td>
+                                    <td>Observación</td>
+                                </tr>
+                                <tr *ngFor="let planilla of planillas_rec; let i = index" align="center" [ngClass]="{success: registro_activo == i}" style="width:100%;overflow: scroll;font-size:8px">
+                                    <td><a (click)="consultarPlanilla(planilla,i)" style="cursor: pointer;">{{ planilla.Num_PlanillaR }}</a></td>
+                                    <td><b>{{ planilla.Nro_Placa }}</b></td>
+                                    <td>{{ planilla.Cod_Oficina }}</td>
+                                    <td>{{ planilla.Nom_Zona }}</td>
+                                    <td>{{ planilla.Responsable }}</td>
+                                    <td>{{ planilla.Comunicarse }}</td>
+                                    <td width="15%">{{ planilla.Observaciones }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Guías
+                        <b *ngIf="planillas_rec">({{ planillas_rep.length }})</b>
+                    </div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 200px; font-size:11px">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%;overflow: scroll;font-size:11px !important">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td>Planilla</td>
+                                    <td>Placa</td>
+                                    <td>Oficina</td>
+                                    <td>Zona</td>
+                                    <td>Responsable ruta</td>
+                                    <td>Comunicarse</td>
+                                    <td>Observación</td>
+                                </tr>
+                                <tr *ngFor="let planilla of planillas_rec; let i = index" align="center" [ngClass]="{success: registro_activo == i}" style="width:100%;overflow: scroll;font-size:8px">
+                                    <td><a (click)="consultarPlanilla(planilla,i)" style="cursor: pointer;">{{ planilla.Num_PlanillaR }}</a></td>
+                                    <td><b>{{ planilla.Nro_Placa }}</b></td>
+                                    <td>{{ planilla.Cod_Oficina }}</td>
+                                    <td>{{ planilla.Nom_Zona }}</td>
+                                    <td>{{ planilla.Responsable }}</td>
+                                    <td>{{ planilla.Comunicarse }}</td>
+                                    <td width="15%">{{ planilla.Observaciones }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ordenes de servicio
+                        <b *ngIf="planillas_rec">({{ planillas_rec.length }})</b>
+                    </div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 200px; font-size:11px">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%;overflow: scroll;font-size:11px !important">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td>Planilla</td>
+                                    <td>Placa</td>
+                                    <td>Oficina</td>
+                                    <td>Zona</td>
+                                    <td>Responsable ruta</td>
+                                    <td>Comunicarse</td>
+                                    <td>Observación</td>
+                                </tr>
+                                <tr *ngFor="let planilla of planillas_rec; let i = index" align="center" [ngClass]="{success: registro_activo == i}" style="width:100%;overflow: scroll;font-size:8px">
+                                    <td><a (click)="consultarPlanilla(planilla,i)" style="cursor: pointer;">{{ planilla.Num_PlanillaR }}</a></td>
+                                    <td><b>{{ planilla.Nro_Placa }}</b></td>
+                                    <td>{{ planilla.Cod_Oficina }}</td>
+                                    <td>{{ planilla.Nom_Zona }}</td>
+                                    <td>{{ planilla.Responsable }}</td>
+                                    <td>{{ planilla.Comunicarse }}</td>
+                                    <td width="15%">{{ planilla.Observaciones }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

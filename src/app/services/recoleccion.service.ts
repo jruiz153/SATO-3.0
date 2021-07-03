@@ -17,6 +17,10 @@ export class RecoleccionService {
     return this.http.post<any[]>(`${ this.url }recoleccion/ConsultarPlanillasRecoleccionMonitor/`,data);
   }
 
+  consultarOSsPlanillaRecoleccionMonitor(data): Observable<any[]>{
+    return this.http.post<any[]>(`${ this.url }recoleccion/ConsultarOSsMonitorRecoleccion/`,data);
+  }
+
   consultarOSsPlanillaRecoleccion(data): Observable<any[]>{
     return this.http.post<any[]>(`${ this.url }recoleccion/ConsultarPlanillasRecoleccionMonitor/`,data);
   }
@@ -24,4 +28,6 @@ export class RecoleccionService {
   consultarResumenPlanillaRecoleccion(data): Observable<any[]>{
     return this.http.post<any[]>(`${ this.url }recoleccion/ConsultarResumenPlanillaMonitor/`,data);
   }
+
+  
 }

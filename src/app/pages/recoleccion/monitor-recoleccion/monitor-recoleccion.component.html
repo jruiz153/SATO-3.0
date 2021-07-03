@@ -1,1 +1,335 @@
-<p>monitor-recoleccion works!</p>
+<form [formGroup]="forma" (ngSubmit)="consultar()">
+    <!-- {{ userS.acciones_s | json }} -->
+    {{ opcion_activa }}
+    <!-- informacion general -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Embalaje:</label>
+                            <div class="col-sm-3 input-icons">
+                                <i class="fas fa-box icon"></i>
+                                <select formControlName="drpEmbalaje" id="drpEmbalaje" class="input-field">
+                                    <option value="" selected="selected">--Seleccione--</option>
+                                    <option value="CA"><i class="fas fa-address-card"></i> &nbsp; CAJAS</option>
+                                    <option value="PA"><i class="fas fa-box"></i> &nbsp; PAQUETES</option>
+                                    <option value="SO"><i class="fas fa-envelope"></i> &nbsp; SOBRES</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label">Zona L.:</label>
+                            <!-- <div class="col-sm-3 col-md-3 col-lg-3">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Seleccione embalaje</mat-label>
+                                    <mat-select formControlName="drpEmbalaje" id="drpEmbalaje" autofocus>
+                                        <mat-option>--Seleccione embalaje--</mat-option>
+                                        <mat-option value="CA"><i class="fas fa-box-open"></i> &nbsp; CAJAS</mat-option>
+                                        <mat-option value="PA"><i class="fas fa-box"></i> &nbsp; PAQUETES</mat-option>
+                                        <mat-option value="SO"><i class="fas fa-envelope"></i> &nbsp; SOBRES</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div> -->
+
+                            <div class="col-sm-3">
+                                <select id="drpZona" formControlName="drpZona">
+                                    <option value="" selected="selected">--Seleccione zona--</option>
+                                    <option *ngFor="let zona of zonas" value="{{ zona.Cod_Zona }}">{{ zona.Nom_Zona }}</option>
+                                </select>
+                                <!-- <mat-form-field class="full-width" disabled>
+                                    <mat-label>Zona logistica</mat-label>
+                                    <mat-select formControlName="drpZona" id="drpZona">
+                                        <mat-option>--Seleccione zona--</mat-option>
+                                        <mat-option *ngFor="let zona of zonas" value="{{ zona.Cod_Zona }}"><i class="fas fa-truck"></i> &nbsp;{{ zona.Nom_Zona }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </div>
+                            <div class="col-sm-2">
+                                <button mat-raised-button (click)="consultar()" color="primary" class="full-width">
+                                    Consultar
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-loading *ngIf="cargando"></app-loading>
+    </div>
+
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Por fecha
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-6">
+                            <select formControlName="drpTipoFecha" id="drpTipoFecha">
+                                <option value="" selected="selected">--Seleccione--</option>
+                                <option value="0">Menor o igual</option>
+                                <option value="1">Igual</option>
+                                <option value="2">Mayor o igual</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="date" formControlName="txtFechaConsulta" id="txtFechaConsulta">
+                            <!-- <mat-form-field class="full-width">
+                                <mat-label>Criterio fecha</mat-label>
+                                <mat-select formControlName="drpEmbalaje" id="drpEmbalaje" autofocus>
+                                    <mat-option value="0">Menor o igual</mat-option>
+                                    <mat-option value="1">Igual</mat-option>
+                                    <mat-option value="2">Mayor o igual</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                        </div>
+
+                        <!-- <div class="col-sm-6">
+                            <mat-form-field class="full-width">
+                                <mat-label>Seleccione fecha</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="txtFecha">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Por Cuentas
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-5">
+                            <input #myCuenta type="txtCuenta" formControlName="txtCuenta" (change)="adicionarCuenta()" placeholder="XX-XXX-XXXX">
+                        </div>
+                        <div class="col-sm-7">
+                            <select id="drpCuentas" formControlName="drpCuentas">
+                                <option value="" selected="selected">--Cuentas--</option>
+                                <option *ngFor="let cuenta of cuentas" value="{{ cuenta.Cuenta }}">{{ cuenta.Cuenta }}</option>
+                            </select>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                            <mat-form-field class="full-width">
+                                <input #myCuenta type="txtCuenta" formControlName="txtCuenta" (change)="adicionarCuenta()" matInput placeholder="Cuenta">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <mat-form-field class="full-width" disabled>
+                                <mat-label>Cuentas</mat-label>
+                                <mat-select formControlName="drpCuentas" id="drpCuentas">
+                                    <mat-option>--Seleccione cuenta--</mat-option>
+                                    <mat-option *ngFor="let cuenta of cuentas" value="{{ cuenta.Cuenta }}"><i class="fas fa-truck"></i> &nbsp;{{ cuenta.Cuenta }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Clientes celulares
+                    </div>
+                    <div class="panel-body">
+                        <!-- <div class="col-sm-6">
+                            <div class="col-sm-6">
+                                <section style="text-align: right;">
+                                    <mat-checkbox formControlName="chkClientesCelulares" id="chkClientesCelulares">Clientes celulares</mat-checkbox>
+                                </section>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12">
+                            <select formControlName="drpAccion" id="drpAccion">
+                                <option value="" selected="selected">--Seleccione--</option>
+                                <option value="1">Incluir</option>
+                                <option value="0">Excluir</option>
+                            </select>
+
+                            <!-- <mat-form-field class="full-width">
+                                <mat-label>Acción</mat-label>
+                                <mat-select formControlName="drpAccion" id="drpAccion" autofocus>
+                                    <mat-option value="0">Incluir</mat-option>
+                                    <mat-option value="1">Excluir</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-loading *ngIf="cargandoPlanillas"></app-loading>
+    <!-- oss -->
+    <div class="form-horizontal">
+        <!-- *ngIf="guias.length > 0" -->
+        <div class="form-group">
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ordenes de servicio planilla {{ planilla }} ( {{ oss.length }} )</div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 150px;">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:2500px;overflow: scroll;">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td></td>
+                                    <td>Aviso</td>
+                                    <td>Estado</td>
+                                    <td>Ruta</td>
+                                    <td>Orden S.</td>
+                                    <td>Cuenta</td>
+                                    <td>Cliente</td>
+                                    <td>Dirección</td>
+                                    <td>Ciudad</td>
+                                    <td>H.Inicial</td>
+                                    <td>H.Final</td>
+                                    <td>Nota</td>
+                                    <td>Contacto</td>
+                                    <td>Telefono</td>
+                                    <td>CajasP.ini-P.Final</td>
+                                    <td>Sobres</td>
+                                    <td>Valor.Decla</td>
+                                    <td>Ultima solución</td>
+                                    <td>Observaciones</td>
+                                    <td>Guía online</td>
+                                    <td>Ciudades D.</td>
+                                    <td>Tel cliente D.</td>
+                                    <td>Cliente D.</td>
+                                    <td>Nom destinatario D.</td>
+                                    <td>Dir cliente D.</td>
+                                    <td>Creada el</td>
+                                    <td>Fec. Rec.</td>
+                                </tr>
+                                <tr *ngFor="let os of oss; let i = index" [ngClass]="{success: os_activo == i}">
+                                    <td [matMenuTriggerFor]="appMenu" (click)="detalleOS(os,i)">
+                                        <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
+                                        <mat-menu #appMenu #contextMenu2="matMenu">
+                                            <ng-template matMenuContent let-item="pl">
+                                                <button *ngFor="let planilla of planillas" mat-menu-item (click)="asignarOSPlanilla(planilla.Num_PlanillaR,i)">{{planilla.Nro_Placa}} - {{planilla.Num_PlanillaR}} - {{planilla.Nom_Zona}}</button>
+                                            </ng-template>
+                                        </mat-menu>
+                                    </td>
+                                    <td></td>
+                                    <td>{{ os.Estado }}</td>
+                                    <td>{{ os.Nom_Ruta }}</td>
+                                    <td>{{ os.Num_OrdenS }}</td>
+                                    <td>{{ os.Cuenta }}</td>
+                                    <td>{{ os.Nom_Cliente }}</td>
+                                    <td>{{ os.Dir_Cliente }}</td>
+                                    <td>{{ os.CiudadD }}</td>
+                                    <td>{{ os.HIni }}</td>
+                                    <td>{{ os.HFin }}</td>
+                                    <td></td>
+                                    <td>{{ os.Contacto }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="panel panel-danger" *ngIf="os">
+                    <div class="panel-heading">Orden: {{ os.Num_OrdenS }}</div>
+                    <div class="panel-body text-center">
+                        <div class="col-sm-12">
+                            <table style="width:100%; font-size: 11px;">
+                                <tr>
+                                    <td width="10%" align="right">Cliente:</td>
+                                    <td width="90%" align="left"><b>{{ os.Nom_Cliente }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Estado:</td>
+                                    <td align="left">{{ os.Estado }}</td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Dirección:</td>
+                                    <td align="left">{{ os.Dir_Cliente }}</td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Cuenta:</td>
+                                    <td align="left">{{ os.Cuenta }}</td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Contacto:</td>
+                                    <td align="left">{{ os.Contacto }}</td>
+                                </tr>
+                                <tr>
+                                    <td align="right">Hora:</td>
+                                    <td align="left">{{ os.HIni }} - {{ os.HFin }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-loading *ngIf="cargandoOSs"></app-loading>
+    <!-- planillas -->
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Planillas ({{ planillas.length }})</div>
+                    <div class="panel-body text-center" style="overflow: scroll; height: 200px; font-size:8px">
+                        <div class="col-sm-12">
+                            <table class="tabla tabla-bordered" style="width:100%;overflow: scroll;font-size:8px !important">
+                                <tr style="font-weight: bold;" align="center">
+                                    <td>Planilla</td>
+                                    <td>Placa</td>
+                                    <td>Oficina</td>
+                                    <td>Zona</td>
+                                    <td>Responsable ruta</td>
+                                    <td>Comunicarse</td>
+                                    <td>Observación</td>
+                                </tr>
+                                <tr *ngFor="let planilla of planillas; let i = index" align="center" [ngClass]="{success: registro_activo == i}" style="width:100%;overflow: scroll;font-size:8px">
+                                    <td><a (click)="consultarPlanilla(planilla,i)" style="cursor: pointer;">{{ planilla.Num_PlanillaR }}</a></td>
+                                    <td><b>{{ planilla.Nro_Placa }}</b></td>
+                                    <td>{{ planilla.Cod_Oficina }}</td>
+                                    <td>{{ planilla.Nom_Zona }}</td>
+                                    <td>{{ planilla.Responsable }}</td>
+                                    <td>{{ planilla.Comunicarse }}</td>
+                                    <td width="15%">{{ planilla.Observaciones }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="panel panel-danger">
+                    <div class=" panel-heading ">Planilla: {{ planilla }}</div>
+                    <div class="panel-body text-center ">
+                        <div class="col-sm-12 ">
+                            <table class="tabla tabla-bordered " style="width:100% ">
+                                <tr style="font-weight: bold; " align="center ">
+                                    <td width="70% ">Estado</td>
+                                    <td width="30% ">Cantidad</td>
+                                </tr>
+                                <tr *ngFor="let r of resumen; let i=i ndex " align="center ">
+                                    <td>{{ r.Estado }}</td>
+                                    <td>{{ r.Cantidad }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

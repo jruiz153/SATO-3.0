@@ -10,8 +10,15 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 /* import { MaterialModule } from '../app/modules/material.modules'; */
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { ChartsModule } from 'ng2-charts';
 import { SharedModule } from './shared/shared.module';
 import { RecoleccionModule } from './pages/recoleccion/recoleccion.module';
+import { ToolsService } from './services/tools.service';
+import { UserService } from './services/user.service';
+import { RepartoService } from './services/reparto.service';
+import { RecoleccionService } from './services/recoleccion.service';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,13 +31,15 @@ import { RecoleccionModule } from './pages/recoleccion/recoleccion.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     PagesModule,
+    ReactiveFormsModule,
+    SharedModule,
     /* RepartoModule, */
-    RecoleccionModule,
+    /*RecoleccionModule,*/
 /*     MaterialModule, */
     AuthModule,
-    SharedModule
+    ChartsModule
   ],
-  providers: [],
+  providers: [ToolsService,UserService,RepartoService,RecoleccionService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
