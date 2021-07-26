@@ -13,6 +13,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { AutocompleteOperadoresComponent } from './autocomplete/autocomplete-operadores/autocomplete-operadores.component';
 import { AutocompleteCiudadesComponent } from './autocomplete/autocomplete-ciudades/autocomplete-ciudades.component';
 import { MensajesComponent } from './mensajes/mensajes.component';
+import { GridsComponent } from './grids/grids.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MensajesComponent } from './mensajes/mensajes.component';
     LoadingComponent, 
     AutocompleteOperadoresComponent,
     AutocompleteCiudadesComponent,
-    MensajesComponent
+    MensajesComponent,
+    GridsComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import { MensajesComponent } from './mensajes/mensajes.component';
     AutocompleteCiudadesComponent,
     MensajesComponent,
     SearchComponent, 
-    ReactiveFormsModule
+    //ReactiveFormsModule,
+    GridsComponent
   ]
 })
 export class SharedModule { }

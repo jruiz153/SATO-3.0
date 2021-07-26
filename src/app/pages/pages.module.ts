@@ -29,7 +29,7 @@ import { PagesRoutingModule } from './pages.routing';
     FormsModule,
     ReactiveFormsModule,
     PagesRoutingModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
   ]
 })
 export class PagesModule { }

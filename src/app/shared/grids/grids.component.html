@@ -1,0 +1,31 @@
+<table class="tabla tabla-bordered" style="width:1500px;overflow: scroll;">
+    <tr style="font-weight: bold;" align="center">
+        <td></td>
+        <td>Regional</td>
+        <td>Forma pago</td>
+        <td>Guia</td>
+        <td>Estado</td>
+        <td>Viene de R</td>
+        <td>Pasa a CC</td>
+        <td>Novedad</td>
+        <td>Aclaración</td>
+
+        <td>Nov.OP</td>
+        <td>Nov.SC</td>
+        <td>Control</td>
+    </tr>
+    <tr *ngFor="let guia of guias; let i = index" align="center">
+        <td>{{ i + 1 }}</td>
+        <td><b>{{ guia.Cod_Regional }}</b></td>
+        <td><b>{{ guia.Cod_FormaPago }}</b></td>
+        <td>{{ guia.Cons_GuiasU }}</td>
+        <td>{{ guia.Des_EstadoG }}</td>
+        <td>{{ guia.CP }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ guia.Num_ControlC }}</td>
+    </tr>
+</table>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { SatoService } from 'src/app/services/sato.service';
 import { ToolsService } from 'src/app/services/tools.service';
@@ -84,7 +84,7 @@ export class CrearPlanillaRepartoComponent implements OnInit {
 
    ngOnInit(): void {
     this.tools.mostrarNavbar();
-    this.tools.asignarTituloOpcion('Crear planilla de reparto');
+    //this.tools.asignarTituloOpcion('Crear planilla de reparto');
     this.cod_regional=1;
     //this.cod_regional=this.authS.cod_regional;
   }
@@ -96,8 +96,8 @@ export class CrearPlanillaRepartoComponent implements OnInit {
       drpEmbalaje: ['', Validators.required],
       drpTipo: ['', Validators.required],
       drpCCs: ['', Validators.required],
-      
-
+      arrOpe: this.fb.array([]),
+  
       //Acciones
       rblAccion: [''],
       txtCodRegional: [''],
@@ -105,11 +105,9 @@ export class CrearPlanillaRepartoComponent implements OnInit {
       txtConsGuiasU: [''],
 
       //envia
-      
       drpFrente: [''],
       txtPlacaenvia: [''],
-      
-      txtCC: [''],
+      txtCC: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
       txtCodigoConductorenvia: [''],
       drpConductorenvia: [''],
       txtCodigoOperador: [''],
@@ -119,10 +117,8 @@ export class CrearPlanillaRepartoComponent implements OnInit {
       //Reexpedidores
       drpReexpedidores: [''],
       drpTipoLiquidacionRX: [''],
-     
       txtCodigoConductorRX: [''],
       drpConductorRX: [''],
-
       txtCodigoOperadorRX: [''],
       drpOperadorRX: [''],
 
@@ -241,8 +237,7 @@ export class CrearPlanillaRepartoComponent implements OnInit {
 
     this.repartoS.consultarControlCargue(data).subscribe((res:any)=>{
       
-      if(res.Cod_Regional >0 && res.Estado_ControlC !='CE'){
-
+      if(res.Cod_Regional >0 && (res.Estado_ControlC !='CE' && res.Estado_ControlC !='AN')){
             this.cod_macrozona = res.Cod_RutaR;
             this.nom_macrozona = res.Nom_Ruta;
             this.cod_zonal = res.Cod_ZonaL;
@@ -254,7 +249,6 @@ export class CrearPlanillaRepartoComponent implements OnInit {
                 Cod_RutaR: res.Cod_RutaR,
                 Mca_TEmbalaje: res.Mca_TEmbalaje
               }
-              console.log(dataf)
 
               this.satoS.consultarFrentes(dataf).subscribe(resf=>{
                 this.frentes = resf;
@@ -275,7 +269,6 @@ export class CrearPlanillaRepartoComponent implements OnInit {
         this.tools.mensaje_error('Error: CC no existe o esta cerrado!')
       }
     })
-  
   }
 
   eliminarCC(cc:any): void {
@@ -326,6 +319,7 @@ export class CrearPlanillaRepartoComponent implements OnInit {
       this.tools.mensaje_error("Error consultando conductores")
       }
     )
+
   }
 
   consultarOperadores(){
@@ -355,6 +349,15 @@ export class CrearPlanillaRepartoComponent implements OnInit {
     )
     this.tools.mensaje_ok('Operador adicionado');
   }
+
+  construirFormularioOperadores(){
+    const opes = this.forma.controls.arrOpe as FormArray;
+    
+    opes.push(this.fb.group({
+      txtCodigo: [],
+      txtNombre: [],
+    }))
+  }
   
   eliminarOperador(index:number){
     this.array_operadores.splice(index,1);
@@ -378,7 +381,6 @@ export class CrearPlanillaRepartoComponent implements OnInit {
   }
 
   buscarCodigoOperadorenvia(){
-    alert(this.forma.controls.txtCodigoOperador.value.toUpperCase());
     this.forma.get('drpOperadorenvia').patchValue(this.forma.controls.txtCodigoOperador.value.toUpperCase());
   }
 

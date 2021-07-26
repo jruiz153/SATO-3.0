@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,ReactiveFormsModule  } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToolsService } from 'src/app/services/tools.service';
 
 @Component({
   selector: 'app-search',
@@ -8,10 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
+  @Output() toggleSidenav = new EventEmitter<void>();
   forma: FormGroup;
 
-  constructor(private router:Router, private fb: FormBuilder) {
+  constructor(private router:Router, private fb: FormBuilder,public tools: ToolsService) {
     this.forma = this.fb.group({
       txtGuia: ['', Validators.required],
     })
@@ -21,7 +22,9 @@ export class SearchComponent implements OnInit {
   }
 
   buscar(){
-    this.router.navigate(['/results',this.forma.get('txtGuia').value]);
+    //this.tools.cambiarPosicionMenu('start')
+    //this.toggleSidenav.emit();
+    this.router.navigate(['/main/results',this.forma.get('txtGuia').value]);
   }
 
   submit(){

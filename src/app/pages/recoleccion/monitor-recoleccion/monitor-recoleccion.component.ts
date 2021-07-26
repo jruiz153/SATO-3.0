@@ -71,7 +71,6 @@ export class MonitorRecoleccionComponent implements OnInit {
   
   ngOnInit(): void {
     this.cod_regional = 1; //this.authS.cod_regional;
-    this.tools.asignarTituloOpcion('Monitor de recoleccion');
     this.consultarZonas();
   }
 
@@ -152,7 +151,8 @@ export class MonitorRecoleccionComponent implements OnInit {
     this.recoleccionS.consultarOSsPlanillaRecoleccionMonitor(data_planilla).subscribe(res=>{
       this.oss = res;
       this.cargandoOSs = false;
-
+      console.log(res);
+      
       if(this.oss.length === 0){
         this.tools.mensaje_error('No hay ordenes de servicio asignadas a la planilla ' + planilla);
       }

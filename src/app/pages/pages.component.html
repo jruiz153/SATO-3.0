@@ -5,13 +5,16 @@
     <mat-sidenav #sidenav mode="push" [position]="tools.posicion_menu">
         <app-menu *ngIf="tools.posicion_menu =='start'" (toggleSidenav)="sidenav.toggle()"></app-menu>
         <app-search *ngIf="tools.posicion_menu !='start'"></app-search>
+        <!-- <app-search *ngIf="tools.posicion_menu !='start'"></app-search> -->
     </mat-sidenav>
 
     <mat-sidenav-content style="padding-left: 15px; padding-right: 15px;">
         <div style="height: 88vh;">
             <div style="height: 6px;"></div>
             <router-outlet></router-outlet>
-            cargue pages. component
+            cargue pages. component** desde pages..
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
+
+{{ tools.posicion_menu }}

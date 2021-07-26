@@ -1,8 +1,30 @@
 <form [formGroup]="forma" (ngSubmit)="grabar()">
     <!-- {{ userS.acciones_s | json }} -->
     <!-- informacion general -->
-    <div class="form-horizontal">
+    <!--     <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Fecha:</label>
+            <div class="col-sm-4">
+                <input type="date" formControlName="txtFecha" id="txtFecha">
+            </div>
+            <label class="col-sm-2 control-label">Fecha:</label>
+            <div class="col-sm-4">
+                <input type="date" formControlName="txtFecha" id="txtFecha">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Fecha:</label>
+            <div class="col-sm-4">
+                <input type="date" formControlName="txtFecha" id="txtFecha">
+            </div>
+            <label class="col-sm-2 control-label">Fecha:</label>
+            <div class="col-sm-4">
+                <input type="date" formControlName="txtFecha" id="txtFecha">
+            </div>
+        </div>
+    </div> -->
 
+    <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-12">
                 <div class="panel panel-default">
@@ -30,17 +52,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-1 control-label">C.cargue:</label>
+                            <label class="col-sm-1 control-label">C.Cargue:</label>
+
                             <div class="col-sm-3">
                                 <input #myCC type="text" formControlName="txtCC" id="txtCC" placeholder="C.C" (change)="adicionarCC()" autofocus>
+                                <small style="text-align: left;" *ngIf="forma.controls['txtCC'].invalid && forma.controls['txtCC'].touched" class="text-danger"><b>CC invalido</b></small>
                             </div>
                             <div class="col-sm-4 control-label" style="text-align: left;">
-                                <div class="badge" *ngFor="let cc of ccs" (click)="eliminarCC(cc)">{{ cc.num_controlc }}</div>
+                                <div class="badge" *ngFor="let cc of ccs" (click)="eliminarCC(cc)" style="cursor: pointer;">{{ cc.num_controlc }}</div>
                             </div>
                             <label class="col-sm-1 col-md-1 col-lg-1 control-label">Tipo:</label>
                             <div class="col-sm-3 input-icons">
                                 <i class="fas fa-user icon"></i>
-                                <select formControlName="drpTipo" id="drpTipo" (change)="consultarParametrosTipo()" class="input-field">
+                                <select formControlName="drpTipo" id="drpTipo" (change)="consultarParametrosTipo()" class="input-field">  <!-- *ngIf="ccs.length > 0" -->
                                     <option value="" selected="selected">--Seleccione--</option>
                                     <option value="envia"><i><b style="color:#bf0000">envía</b></i></option>
                                     <option value="RX">REEXPEDIDORES</option>
@@ -168,9 +192,9 @@
                                     <label class="col-sm-3 control-label ">Reexpedidor:</label>
                                     <div class="col-sm-9 ">
                                         <select id="drpReexpedidores" formControlName="drpReexpedidores" (change)="tiposLiquidacionRX()">
-                                                <option value="" selected="selected">--Seleccione--</option>
-                                                <option *ngFor="let r of reexpedidores " value="{{ r.Cod_Reexpedidor }} ">{{ r.Nom_Reexpedidor }}</option>
-                                            </select>
+                                            <option value="" selected="selected">--Seleccione--</option>
+                                            <option *ngFor="let r of reexpedidores " value="{{ r.Cod_Reexpedidor }} ">{{ r.Nom_Reexpedidor }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group ">
@@ -380,202 +404,210 @@
         </div>
     </div>
 
-    <!-- guias -->
-    <div class="form-horizontal ">
-        <!-- *ngIf="guias.length> 0" -->
-        <div class="form-group">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
+    <div id="main-container" *ngIf="ccs.length > 0">
+        <!-- guias -->
+        <div class="form-horizontal">
 
-                    <div class="panel-body text-center" style="overflow: scroll; height: 150px;">
-                        <div class="col-sm-12">
-                            <table class="tabla tabla-bordered" style="width:1500px;overflow: scroll;">
-                                <tr style="font-weight: bold;" align="center">
-                                    <td></td>
-                                    <td>Regional</td>
-                                    <td>Forma pago</td>
-                                    <td>Guia</td>
-                                    <td>Estado</td>
-                                    <td>Viene de R</td>
-                                    <td>Pasa a CC</td>
-                                    <td>Novedad</td>
-                                    <td>Aclaración</td>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
 
-                                    <td>Nov.OP</td>
-                                    <td>Nov.SC</td>
-                                    <td>Control</td>
-                                </tr>
-                                <tr *ngFor="let guia of guias; let i = index" align="center">
-                                    <td>{{ i + 1 }}</td>
-                                    <td><b>{{ guia.Cod_Regional }}</b></td>
-                                    <td><b>{{ guia.Cod_FormaPago }}</b></td>
-                                    <td>{{ guia.Cons_GuiasU }}</td>
-                                    <td>{{ guia.Des_EstadoG }}</td>
-                                    <td>{{ guia.CP }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>{{ guia.Num_ControlC }}</td>
-                                </tr>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- observaciones -->
-
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-6">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <div class="col-sm-4" style="text-align: center;">
-                                <div class="radio radio-styled">
-                                    <label>
-                                        <input type="radio" formControlName="rblAccion" id="rblAccion" value="Insertar" checked="">
-                                        <span>Ingresar guías</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" style="text-align: center;">
-                                <div class="radio radio-styled">
-                                    <label>
-                                        <input type="radio" formControlName="rblAccion" id="rblAccion" value="Retirar" checked="">
-                                        <span>Retirar guías</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4" style="text-align: center;">
-                                <div class="radio radio-styled">
-                                    <label>
-                                        <input type="radio" formControlName="rblAccion" id="rblAccion" value="Novedades" checked="">
-                                        <span>Novedades</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Insertar guias en la planilla -->
-            <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Insertar'">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Guía:</label>
-                            <div class="col-sm-9">
-                                <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
-                                <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
-                                <input type="text" style="width: 150px;" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Retirar guias en la planilla -->
-            <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Retirar'">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Guía :</label>
-                            <div class="col-sm-9">
-                                <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
-                                <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
-                                <input type="text" style="width: 150px;" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Pasa a CC :</label>
-                            <div class="col-sm-9">
-                                <input #myCCPasa type="text" style="width: 150px;" class="texto-guia" formControlName="txtCCPasa" id="txtCCPasa" maxlength="2">&nbsp;
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Novedad guia -->
-            <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Novedades'">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Guía:</label>
-                            <div class="col-sm-2">
-                                <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
-                            </div>
-                            <div class="col-sm-5">
-                                <input type="text" style="width: 100%" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Novedad :</label>
-                            <div class="col-sm-2">
-                                <input type="text" class="texto-guia" style="width: 40px;" formControlName="txtCodNovedad" id="txtCodFormaPago" maxlength="2">&nbsp;
-                            </div>
-                            <div class="col-sm-7">
-                                <input type="text" class="texto-guia" formControlName="txtAclaracion" id="txtConsGuiasU" placeholder="Digite aclaración...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="form-group">
+                        <div class="panel-body text-center" style="overflow: scroll; height: 150px;">
                             <div class="col-sm-12">
-                                <textarea id="txtObservaciones" class="full-width" name="txtObservaciones" placeholder="Observaciones"></textarea>
+                                <table class="tabla tabla-bordered" style="width:1500px;overflow: scroll;">
+                                    <tr style="font-weight: bold;" align="center">
+                                        <td></td>
+                                        <td>Regional</td>
+                                        <td>Forma pago</td>
+                                        <td>Guia</td>
+                                        <td>Estado</td>
+                                        <td>Viene de R</td>
+                                        <td>Pasa a CC</td>
+                                        <td>Novedad</td>
+                                        <td>Aclaración</td>
+                                        <td>Nov.OP</td>
+                                        <td>Nov.SC</td>
+                                        <td>Control</td>
+                                    </tr>
+                                    <tr *ngFor="let guia of guias; let i = index" align="center">
+                                        <td>{{ i + 1 }}</td>
+                                        <td><b>{{ guia.Cod_Regional }}</b></td>
+                                        <td><b>{{ guia.Cod_FormaPago }}</b></td>
+                                        <td>{{ guia.Cons_GuiasU }}</td>
+                                        <td>{{ guia.Des_EstadoG }}</td>
+                                        <td>{{ guia.CP }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ guia.Num_ControlC }}</td>
+                                    </tr>
+                                    <tr *ngFor="let guias_ of forma.controls.arrOpe?.value" align="center">
+                                        <td><input type="text" formControlName="txtCodigo" value="1"></td>
+                                        <td><input type="text" formControlName="txtNombre" value="2"></td>
+                                    </tr>
+                                </table>
+
+                                <!-- <app-grids [guias]="guias" *ngIf="guias.length > 0"> </app-grids> -->
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- totales -->
-    <div class="form-horizontal">
-        <!-- *ngIf="guias.length > 0" -->
-        <div class="alert alert-danger">
+        <!-- observaciones -->
+
+        <div class="form-horizontal">
             <div class="form-group">
                 <div class="col-sm-6">
-                    <h3>Total destinos: {{ guias.length }} </h3>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-sm-4" style="text-align: center;">
+                                    <div class="radio radio-styled">
+                                        <label>
+                                            <input type="radio" formControlName="rblAccion" id="rblAccion" value="Insertar" checked="">
+                                            <span>Ingresar guías</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" style="text-align: center;">
+                                    <div class="radio radio-styled">
+                                        <label>
+                                            <input type="radio" formControlName="rblAccion" id="rblAccion" value="Retirar" checked="">
+                                            <span>Retirar guías</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" style="text-align: center;">
+                                    <div class="radio radio-styled">
+                                        <label>
+                                            <input type="radio" formControlName="rblAccion" id="rblAccion" value="Novedades" checked="">
+                                            <span>Novedades</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <h3>Total guías: {{ guias.length }} </h3>
+                <!-- Insertar guias en la planilla -->
+                <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Insertar'">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Guía:</label>
+                                <div class="col-sm-9">
+                                    <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
+                                    <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
+                                    <input type="text" style="width: 150px;" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Retirar guias en la planilla -->
+                <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Retirar'">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Guía :</label>
+                                <div class="col-sm-9">
+                                    <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
+                                    <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
+                                    <input type="text" style="width: 150px;" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Pasa a CC :</label>
+                                <div class="col-sm-9">
+                                    <input #myCCPasa type="text" style="width: 150px;" class="texto-guia" formControlName="txtCCPasa" id="txtCCPasa" maxlength="2">&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Novedad guia -->
+                <div class="col-sm-6" *ngIf="forma.controls['rblAccion'].value === 'Novedades'">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Guía:</label>
+                                <div class="col-sm-2">
+                                    <input #myCodRegional type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodRegional" id="txtCodRegional" maxlength="2">&nbsp;
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="text" style="width: 40px;" class="texto-guia" formControlName="txtCodFormaPago" id="txtCodFormaPago" maxlength="2">&nbsp;
+                                </div>
+                                <div class="col-sm-5">
+                                    <input type="text" style="width: 100%" class="texto-guia" formControlName="txtConsGuiasU" id="txtConsGuiasU" maxlength="9" (change)="adicionarGuia()">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Novedad :</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="texto-guia" style="width: 40px;" formControlName="txtCodNovedad" id="txtCodFormaPago" maxlength="2">&nbsp;
+                                </div>
+                                <div class="col-sm-7">
+                                    <input type="text" class="texto-guia" formControlName="txtAclaracion" id="txtConsGuiasU" placeholder="Digite aclaración...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- botones -->
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-sm-3" style="padding: 8px;">
-                <button mat-raised-button (click)="grabar()" color="primary" class="full-width">Grabar</button>
-            </div>
-            <div class="col-sm-3" style="padding: 8px;">
-                <button mat-raised-button (click)="anular()" color="primary" class="full-width">Anular</button>
-            </div>
-            <div class="col-sm-3" style="padding: 8px;">
-                <button mat-raised-button (click)="nuevo()" color="primary" class="full-width">Nuevo</button>
-            </div>
-            <div class="col-sm-3" style="padding: 8px;">
-                <button mat-raised-button (click)="imprimir()" color="primary" class="full-width">Imprimir</button>
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea id="txtObservaciones" class="full-width" name="txtObservaciones" placeholder="Observaciones"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- totales -->
+        <div class="form-horizontal">
+            <!-- *ngIf="guias.length > 0" -->
+            <div class="alert alert-danger">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <h3>Total destinos: {{ guias.length }} </h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <h3>Total guías: {{ guias.length }} </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- botones -->
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-3" style="padding: 8px;">
+                    <button mat-raised-button (click)="grabar()" color="primary" class="full-width">Grabar</button>
+                </div>
+                <div class="col-sm-3" style="padding: 8px;">
+                    <button mat-raised-button (click)="anular()" color="primary" class="full-width">Anular</button>
+                </div>
+                <div class="col-sm-3" style="padding: 8px;">
+                    <button mat-raised-button (click)="nuevo()" color="primary" class="full-width">Nuevo</button>
+                </div>
+                <div class="col-sm-3" style="padding: 8px;">
+                    <button mat-raised-button (click)="imprimir()" color="primary" class="full-width">Imprimir</button>
+                </div>
+            </div>
+        </div>
+
     </div>
     {{ userS.acciones_s | json }}
 </form>

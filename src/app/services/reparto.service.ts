@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Reexpedidor } from '../interfaces/reexpedidor.interface';
 import { Tercero } from '../interfaces/tercero.interface';
 import { Vehiculo } from '../interfaces/vehiculo.interface';
+import { CC } from '../interfaces/cc.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,10 @@ export class RepartoService {
   
   consultarTiposLiquidacionTercero(id: number): Observable<any[]>{
     return this.http.get<any[]>(`${ this.url }/reparto/consultarTiposLiquidacionTercero/` + id);
+  }
+
+  //puts
+  actualizarControlCargue(cc: CC): Observable<any[]>{
+    return this.http.put<any[]>(`${ this.url }/reparto/ActualizarControlCargue/`, cc);
   }
 }

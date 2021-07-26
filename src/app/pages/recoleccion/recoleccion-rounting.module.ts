@@ -8,8 +8,8 @@ const routes: Routes = [
     { 
         path: '',
         children: [
-            {path: 'monitor-recoleccion', component: MonitorRecoleccionComponent},
-            {path: 'control-recoleccion', component: ControlRecoleccionComponent}
+            {path: 'monitor-recoleccion', component: MonitorRecoleccionComponent, data:{ titulo: 'Monitor de recolección'}},
+            {path: 'control-recoleccion', component: ControlRecoleccionComponent , data:{ titulo: 'Control recolección'} }
         ]
     }
 ]

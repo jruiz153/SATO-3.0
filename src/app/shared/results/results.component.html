@@ -1,1 +1,254 @@
-<p>results works!</p>
+<div class="alert alert-danger" *ngIf="guiaExiste==false">
+    <h2>Guía no {{num_guia}} existe</h2>
+</div>
+
+<mat-tab-group #matgroup (selectedTabChange)="onTabClick($event)" *ngIf="guiaExiste">
+    <mat-tab label="Información general">
+        <div class="tab-content" style="width: 98%;">
+            <div style="height: 10px;"></div>
+            <div class="form-horizontal" style="font-size: 13px;">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>Informacion General</b></div>
+                            <div class="panel-body">
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Estado</label>
+                                    <div class="col-sm-7" style="color:#D4001B"><b style="font-weight: bold;"> {{ guia.Estado }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Fecha captura:</label>
+                                    <div class="col-sm-7"><b>{{ guia.Fecha_Captura }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Guía:</label>
+                                    <div class="col-sm-8" style="color:#D4001B"><b> {{ guia.Guia }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Servicio:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_Servicio }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Ciudad origen:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_CiudadO }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Ciudad destino:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_CiudadD }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Remitente:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_Remitente }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Destinatario:</label>
+                                    <div class="col-sm-8"><b>{{ guia.Nom_Destinatario }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Telefono Remitente:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Tel_Remitente }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Dir Destinatario:</label>
+                                    <div class="col-sm-8"><b>{{ guia.Dir_Destinatario }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Tel Destinatario:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Tel_Destinatario }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Dice_Contener:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Dice_Contener }}</b></div>
+                                </div>
+
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Dias cubrimiento:</label>
+                                    <div class="col-sm-8"><b style="color:#D4001B"> {{ guia.Dias_Cubrimiento }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Estimado entrega</label>
+                                    <div class="col-sm-7"><b> {{ guia.Estimado_Entrega }}   </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Oficina origen:</label>
+                                    <div class="col-sm-8"><b style="color:#D4001B"> {{ guia.Oficina_Cuenta }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Cuenta:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Cuenta }}</b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Bolsa seguridad:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Bolsa_Seguridad }}  </b></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4"><b>Liquidacion:</b></label>
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-responsive">
+                                            <tr align="center">
+                                                <td>Unidades: <b style="color:#D4001B"> {{ guia.Num_Unidades }}  </b></td>
+                                                <td>Peso:<b style="color:#D4001B"> {{ guia.PesoReal_K }} </b></td>
+                                                <td>Volumen: <b style="color:#D4001B"> {{ guia.PesoVolumen_K }}  </b></td>
+                                            </tr>
+                                            <tr align="center">
+                                                <td>Kg cobrados: <b style="color:#D4001B"> {{ guia.K_Cobrados }}</b></td>
+                                                <td>Valor declarado:<b style="color:#D4001B">  {{ guia.Valor_Declarado | number:'1.0-0' }}</b></td>
+                                                <td>Valor flete: <b style="color:#D4001B"> {{ guia.Valor_Flete | number:'1.0-0' }}</b></td>
+                                            </tr>
+                                            <tr align="center">
+                                                <td>Flete variable: <b style="color:#D4001B"> {{ guia.Valor_Otros | number:'1.0-0' }}</b></td>
+                                                <td>Costo manejo: <b style="color:#D4001B"> {{ guia.Valor_CostoM | number:'1.0-0' }}</b></td>
+                                                <td>Total: <b style="color:#D4001B"> {{ guia.Valor_Total | number:'1.0-0' }}</b></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>Recolección</b></div>
+
+                            <div class="panel-body">
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Fecha Recolección:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Fecha_Recoleccion }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Planilla Recolección:</label>
+                                    <div class="col-sm-8"><b style="color:#D4001B"> {{ guia.Num_PlanillaR }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Responsable:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_Responsable_RC }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Placa:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nro_Placa }}  </b></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>Despacho</b></div>
+                            <div class="panel-body">
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Fecha despacho:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Fecha_Despacho }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Relacion viaje:</label>
+                                    <div class="col-sm-8"><b style="color:#D4001B"> {{ guia.Cod_Regional_RV }} -  {{ guia.Num_RelacionV }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Responsable:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_Responsable_RV }}</b></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>Reparto</b></div>
+                            <div class="panel-body">
+
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Fecha reparto:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Fecha_Reparto }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Planilla:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Num_PlanillaRpto }}  </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Fecha entrega:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Fecha_Entrega }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Hora entrega:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Hora_Entrega }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Memo SAC:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Memo_SAC }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Texto guía:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Texto_Guia }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Documentos:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Documentos }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Control cargue:</label>
+                                    <div class="col-sm-8"><b style="color:#D4001B"> {{ guia.Num_ControlC }} </b></div>
+                                </div>
+
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Ruta:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Cod_RutaR }} </b></div>
+                                </div>
+                                <div class="form-group" style="padding:0px">
+                                    <label class="col-sm-4">Responsable CC:</label>
+                                    <div class="col-sm-8"><b> {{ guia.Nom_Responsable_PRP }} </b></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4">Ver imagen:</label>
+                                    <div class="col-sm-8">
+                                        77
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Novedades">
+        <div class="tab-content" style="width: 98%; align-items: center;">
+            <div style="height: 10px;"></div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                Hola
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="SATO">
+        <div class="tab-content ">
+            <p>SATO</p>
+        </div>
+    </mat-tab>
+    <mat-tab label="Fotos">
+        <ng-template mat-tab-label>
+            <i class="fas fa-spinner fa-spin" *ngIf="cargandoFotos"></i>
+            <!-- <mat-icon class="example-tab-icon" *ngIf="!cargandoFotos">camera_alt</mat-icon> -->
+            Fotos
+        </ng-template><br>
+        <div class="tab-content">
+            <div class="col-sm-6 col-md-3 col-lg-3" *ngFor="let foto of fotos">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <img width="100%" src="http://wsa/verfotos/repositorio/F{{ foto.Fecha }}/{{ foto.Proceso }}/{{ foto.Id }}/{{ foto.SubProceso }}/{{ foto.Imagen }}.jpeg">
+                    </div>
+                    <div class="panel-footer" style="font-size: 12px;">
+                        Proceso: <b>{{ foto.Proceso }}</b> <br> Subproceso:<b>{{ foto.SubProceso }}</b><br> Usuario: <b>{{ foto.Cod_Usr_Mod }}</b><br> Fecha: <b>{{ foto.Fecha }}</b><br> Hora: <b>{{ foto.Hora }}</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Citas">
+        <div class="tab-content ">
+            <p>Novedades</p>
+        </div>
+    </mat-tab>
+</mat-tab-group>

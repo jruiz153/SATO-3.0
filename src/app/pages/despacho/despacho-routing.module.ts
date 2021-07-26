@@ -7,7 +7,7 @@ const routes: Routes = [
   path: '', 
       children: [
         { path: '', component: CapturarGuiaComponent},
-        { path: 'capturar-guia', component: CapturarGuiaComponent },
+        { path: 'capturar-guia', component: CapturarGuiaComponent, data:{ titulo: 'Capturar guía' } },
       ]
     }
 ];

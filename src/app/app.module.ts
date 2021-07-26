@@ -33,7 +33,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PagesModule,
     ReactiveFormsModule,
     SharedModule,
-    /* RepartoModule, */
+    /* RepartoModule, * --- Estos modulos son invocdo en el routing  path: 'reparto',loadChildren: () => import(`./reparto/reparto.module`).then(m => m.RepartoModule) /
     /*RecoleccionModule,*/
 /*     MaterialModule, */
     AuthModule,

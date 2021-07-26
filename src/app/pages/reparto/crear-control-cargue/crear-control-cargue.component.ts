@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { SatoService } from 'src/app/services/sato.service';
 import { ToolsService } from 'src/app/services/tools.service';
 import { UserService } from 'src/app/services/user.service';
 import { RepartoService } from 'src/app/services/reparto.service';
-import { GuiaCC } from '../../../interfaces/guia.interface';
+import { CC } from 'src/app/interfaces/cc.interface';
+//import { GuiaCC } from '../../../interfaces/guia.interface';
 
 @Component({
   selector: 'app-crear-control-cargue',
@@ -16,8 +17,8 @@ export class CrearControlCargueComponent implements OnInit {
   @ViewChild("myCodRegional") myInputField: ElementRef;
   @ViewChild("myControlCargue") myInputCC: ElementRef;
   @ViewChild("myNuevoCC") myNuevoCC: ElementRef;
+  @ViewChild("myCC") myCC: ElementRef;
 
-  //void
   //objetoOperadorLlega: any;
 
   forma: FormGroup;
@@ -87,7 +88,7 @@ export class CrearControlCargueComponent implements OnInit {
     this.opcion_activa = localStorage.getItem('opcion_activa');
     this.cod_regional= 1; //this.authS.cod_regional;
     this.tools.mostrarNavbar();
-    this.tools.asignarTituloOpcion('Crear control cargue');
+    //this.tools.asignarTituloOpcion('Crear control cargue');
     this.cargarPermisos();
     this.fecha = this.authS.fecha_sistema;
   }
@@ -122,10 +123,13 @@ export class CrearControlCargueComponent implements OnInit {
       if(resp.Cod_Regional > 0){
         this.tools.mensaje_ok('Control de cargue encontrado!');
         this.error = false;
-        this.forma.controls.drpEmbalaje.setValue(resp.Mca_TEmbalaje);
-        this.forma.controls.txtCodigoRuta.setValue(resp.Cod_RutaR);
-        this.forma.controls.txtCodigo.setValue(resp.Cod_Responsable);
-        this.forma.controls.txtConsSalida.setValue(resp.Cons_Salida);
+
+        this.forma.patchValue({
+          drpEmbalaje : resp.Mca_TEmbalaje,
+          txtCodigoRuta : resp.Cod_RutaR,
+          txtCodigo : resp.Cod_Responsable,
+          txtConsSalida : resp.Cons_Salida
+        })
 
         this.consultarRutasPromesa().then((resp2:any) =>{
           this.rutas =resp2;
@@ -354,17 +358,38 @@ export class CrearControlCargueComponent implements OnInit {
   }
 
   imprimir(){
-    
+    const cc: CC = {
+      cod_regional: this.cod_regional,
+      num_controlc : this.forma.controls.txtControlCargue.value,
+      cons_salida: this.forma.controls.txtConsSalida.value
+    }
+
+    console.log(cc);
+    this.repartoS.actualizarControlCargue(cc).subscribe( res=>{
+      this.tools.mensaje_ok("Ok");
+    },
+    error => {
+      this.tools.mensaje_error("Error actualizando!");
+    })
   }
 
   limpiarCabezote(){
-    this.forma.controls.txtControlCargue.setValue('');
+
+    this.forma.patchValue({
+      txtControlCargue: '',
+      drpEmbalaje: '',
+      txtCodigoRuta: '',
+      drpRuta: '',
+      txtConsSalida: ''
+    })
+
+    /*this.forma.controls.txtControlCargue.setValue('');
     this.forma.controls.drpEmbalaje.setValue('');
     this.forma.controls.txtCodigoRuta.setValue('');
     this.forma.controls.drpRuta.setValue('');
-    this.forma.controls.txtConsSalida.setValue('');
+    this.forma.controls.txtConsSalida.setValue('');*/
     
-    //this.myInputField.nativeElement.focus();
+    this.myCC.nativeElement.focus();
   }
 
   limpiarControles(){
